@@ -15,6 +15,12 @@ namespace aspnet_get_started.Controllers
 
         public ActionResult About()
         {
+            var cookie = new CookieHeaderValue("session-id", "12345");
+            cookie.Expires = DateTimeOffset.Now.AddDays(1);
+            cookie.Domain = Request.RequestUri.Host;
+            cookie.Path = "/";
+
+            resp.Headers.AddCookies(new CookieHeaderValue[] { cookie });
             ViewBag.Message = "Your application description page.";
 
             return View();
